@@ -1,12 +1,13 @@
 <?php
 
     $NOME = $_REQUEST['NOME'];
-    $ANIMAL = $_REQUEST['ANIMAL'];
+    $IDADE = $_REQUEST['IDADE'];
     $BEBIDA = $_REQUEST['BEBIDA'];
-    $ANO_ATUAL = date('y');
-
+    $ANO_ATUAL = new Dateline ['ANO_ATUAL'];
+    $DATA = new Dataline [$IDADE];
+    $INTE = $ANO_ATUAL -> diff($DATA);
     
-   
+  
     if(empty($NOME)){
         
         $dados = array(
@@ -16,24 +17,20 @@
     
     } else {
 
-        switch($ANIMAL){
-            case '1' : $dados = array(
-                "tipo" => 'cachorro.jpg',
-                "mensagem" => 'Olá '.$NOME.', sabemos que seu animal preferido é o cachorro'
+       if($INTE->y < 18){
+            $dados = array(
+                
+                "mensagem" => 'Não pode beber bebida alcólica.'
             );
-            break;
-            case '2' : $dados = array(
-                "tipo" => 'gato.jpg',
-                "mensagem" => 'Olá '.$NOME.', sabemos que seu animal preferido é o gato'
-            );
-            break;
-            case '3' : $dados = array(
-                "tipo" => 'peixe.jpg',
-                "mensagem" => 'Olá '.$NOME.', sabemos que seu animal preferido é o peixe'
-            );
-            break;
-        }
-
+            
+    
+    }else($INTE->y > 18){
+        $dados = array(
+        "mensagem" => 'Pode beber bebida alcólica.'
+        );
     }
+    }
+    
+    
 
     echo json_encode($dados);
